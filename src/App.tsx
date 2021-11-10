@@ -1,15 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
-import BackgroundImage from './images/bg-stars.svg';
-import Hill from './images/pattern-hills.svg';
-import { ReactComponent as Facebook } from './images/icon-facebook.svg';
-import { ReactComponent as Instagram } from './images/icon-instagram.svg';
-import { ReactComponent as Pinterest } from './images/icon-pinterest.svg';
+import { useState, useEffect } from "react";
+import styled from "styled-components";
+import BackgroundImage from "./images/bg-stars.svg";
+import Hill from "./images/pattern-hills.svg";
+import { ReactComponent as Facebook } from "./images/icon-facebook.svg";
+import { ReactComponent as Instagram } from "./images/icon-instagram.svg";
+import { ReactComponent as Pinterest } from "./images/icon-pinterest.svg";
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  font-family: 'Red Hat Text', sans-serif;
+  font-family: "Red Hat Text", sans-serif;
 `;
 
 const Wrapper = styled.div`
@@ -43,7 +43,6 @@ const Card = styled.div`
   z-index: 2;
 `;
 
-
 const Title = styled.div`
   min-height: 30vh;
   display: flex;
@@ -57,9 +56,9 @@ const TitleText = styled.span`
   letter-spacing: 8px;
   text-transform: uppercase;
   font-weight: 700;
-  @media (max-width:375px) {
+  @media (max-width: 375px) {
     font-size: 1.2rem;
-    width: 80%;
+    width: 90%;
     text-align: center;
   }
 `;
@@ -70,7 +69,7 @@ const Timer = styled.div`
   justify-content: space-between;
   min-height: 30vh;
   min-width: 700px;
-  @media (max-width:375px) {
+  @media (max-width: 375px) {
     min-width: 350px;
   }
 `;
@@ -88,8 +87,9 @@ const Tag = styled.p`
   letter-spacing: 5px;
   color: #8486a9;
   font-weight: 700;
-  @media (max-width:375px) {
-    font-size: 0.5rem;
+  @media (max-width: 375px) {
+    margin-top: 1.5rem;
+    font-size: 0.4rem;
   }
 `;
 
@@ -105,7 +105,7 @@ const Time = styled.div`
   box-shadow: 0px 12px 5px #191a24;
   &:after {
     position: absolute;
-    content: '';
+    content: "";
     width: 6px;
     height: 12px;
     background: #191a24;
@@ -118,7 +118,7 @@ const Time = styled.div`
   }
   &:before {
     position: absolute;
-    content: '';
+    content: "";
     width: 6px;
     height: 12px;
     background: #191a24;
@@ -129,7 +129,7 @@ const Time = styled.div`
     transform: translateY(-50%);
     z-index: 3;
   }
-  @media (max-width:375px) {
+  @media (max-width: 375px) {
     width: 70px;
     height: 70px;
   }
@@ -166,7 +166,7 @@ const TimeText = styled.span`
   font-size: 5rem;
   color: hsl(345, 95%, 68%);
   font-weight: 700;
-  @media (max-width:375px) {
+  @media (max-width: 375px) {
     font-size: 2rem;
   }
 `;
@@ -184,23 +184,51 @@ const SocialIcon = styled.svg`
   color: white;
   cursor: pointer;
   &:hover path {
-    fill: ${({ color }) => color || 'hsl(345, 95%, 68%)'}
+    fill: ${({ color }) => color || "hsl(345, 95%, 68%)"};
   }
 `;
 
 const App = () => {
+  const [days, setDays] = useState<number>(8);
+  const [hours, setHours] = useState<number>(23);
+  const [minutes, setMinutes] = useState<number>(55);
+  const [seconds, setSeconds] = useState<number>(41);
+
+  useEffect(() => {
+    const countdownTimer = setInterval(() => {
+      if (hours === 0 && minutes === 0 && seconds === 0) {
+        setDays((days) => days - 1);
+        setHours(24);
+      }
+      if (minutes === 0 && seconds === 0) {
+        setHours((hours) => hours - 1);
+        setMinutes(60);
+      }
+      if (seconds === 0) {
+        setMinutes((minutes) => minutes - 1);
+        setSeconds(60);
+      }
+      setSeconds((seconds) => seconds - 1);
+    }, 1000);
+    return () => clearInterval(countdownTimer);
+  }, [days, hours, minutes, seconds]);
+
   return (
     <Container>
       <Wrapper>
         <Card>
-          <Title><TitleText>We're launching soon</TitleText></Title>
+          <Title>
+            <TitleText>We're launching soon</TitleText>
+          </Title>
           <Timer>
             <CardTimer>
               <Time>
                 <Top />
                 <Line />
                 <Bottom />
-                <TimeText>8</TimeText>
+                <TimeText>
+                  {Math.floor(days / 10) === 0 ? `0${days}` : days}
+                </TimeText>
               </Time>
               <Tag>Days</Tag>
             </CardTimer>
@@ -209,7 +237,9 @@ const App = () => {
                 <Top />
                 <Line />
                 <Bottom />
-                <TimeText>23</TimeText>
+                <TimeText>
+                  {Math.floor(hours / 10) === 0 ? `0${hours}` : hours}
+                </TimeText>
               </Time>
               <Tag>Hours</Tag>
             </CardTimer>
@@ -218,7 +248,9 @@ const App = () => {
                 <Top />
                 <Line />
                 <Bottom />
-                <TimeText>55</TimeText>
+                <TimeText>
+                  {Math.floor(minutes / 10) === 0 ? `0${minutes}` : minutes}
+                </TimeText>
               </Time>
               <Tag>Minutes</Tag>
             </CardTimer>
@@ -227,7 +259,9 @@ const App = () => {
                 <Top />
                 <Line />
                 <Bottom />
-                <TimeText>41</TimeText>
+                <TimeText>
+                  {Math.floor(seconds / 10) === 0 ? `0${seconds}` : seconds}
+                </TimeText>
               </Time>
               <Tag>Seconds</Tag>
             </CardTimer>
@@ -248,6 +282,6 @@ const App = () => {
       <BackgroundBottom />
     </Container>
   );
-}
+};
 
 export default App;
