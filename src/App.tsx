@@ -29,7 +29,11 @@ const BackgroundBottom = styled.div`
   background-image: url(${Hill});
   background-repeat: no-repeat;
   background-position: bottom;
+  background-size: contain;
   z-index: 1;
+  @media (max-width: 375px) {
+    background-size: 200vw 200px;
+  }
 `;
 
 const Card = styled.div`
