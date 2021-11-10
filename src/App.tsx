@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import BackgroundImage from './images/bg-stars.svg';
 import Hill from './images/pattern-hills.svg';
-import { ReactComponent as Facebook} from './images/icon-facebook.svg';
-import { ReactComponent as Instagram} from './images/icon-instagram.svg';
-import { ReactComponent as Pinterest} from './images/icon-pinterest.svg';
+import { ReactComponent as Facebook } from './images/icon-facebook.svg';
+import { ReactComponent as Instagram } from './images/icon-instagram.svg';
+import { ReactComponent as Pinterest } from './images/icon-pinterest.svg';
 
 const Container = styled.div`
   width: 100%;
@@ -46,6 +46,12 @@ const Title = styled.h1`
   margin-top: 25%;
   letter-spacing: 5px;
   color: hsl(0, 0%, 100%);
+  @media (max-width:375px) {
+    font-size: 20px;
+    width: 80%;
+    text-align: center;
+    margin-top: 40%;
+  }
 `;
 
 const Timer = styled.div``;
@@ -62,7 +68,9 @@ const SocialIcon = styled.svg`
   margin: 0 20px;
   color: white;
   cursor: pointer;
-  fill: white;
+  &:hover path {
+    fill: ${({ color }) => color || 'hsl(345, 95%, 68%)'}
+  }
 `;
 
 const App = () => {
