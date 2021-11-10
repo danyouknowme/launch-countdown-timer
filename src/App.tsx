@@ -15,9 +15,10 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  background-image: url(${BackgroundImage}), linear-gradient(to bottom, hsl(234, 17%, 12%), hsl(235, 16%, 14%), hsl(236, 21%, 26%));
+  background-image: url(${BackgroundImage}), linear-gradient(#1e1f29, #2f2439);
   display: flex;
   justify-content: center;
+  z-index: 1;
 `;
 
 const BackgroundBottom = styled.div`
@@ -28,6 +29,7 @@ const BackgroundBottom = styled.div`
   background-image: url(${Hill});
   background-repeat: no-repeat;
   background-position: bottom;
+  z-index: 1;
 `;
 
 const Card = styled.div`
@@ -38,23 +40,136 @@ const Card = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  z-index: 2;
 `;
 
 
-const Title = styled.h1`
-  text-transform: uppercase;
-  margin-top: 25%;
-  letter-spacing: 5px;
+const Title = styled.div`
+  min-height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TitleText = styled.span`
   color: hsl(0, 0%, 100%);
+  font-size: 1.8rem;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  font-weight: 700;
   @media (max-width:375px) {
-    font-size: 20px;
+    font-size: 1.2rem;
     width: 80%;
     text-align: center;
-    margin-top: 40%;
   }
 `;
 
-const Timer = styled.div``;
+const Timer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 30vh;
+  min-width: 700px;
+  @media (max-width:375px) {
+    min-width: 350px;
+  }
+`;
+
+const CardTimer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Tag = styled.p`
+  margin-top: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: #8486a9;
+  font-weight: 700;
+  @media (max-width:375px) {
+    font-size: 0.5rem;
+  }
+`;
+
+const Time = styled.div`
+  width: 150px;
+  height: 150px;
+  background-color: #343650;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0px 12px 5px #191a24;
+  &:after {
+    position: absolute;
+    content: '';
+    width: 6px;
+    height: 12px;
+    background: #191a24;
+    border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 3;
+  }
+  &:before {
+    position: absolute;
+    content: '';
+    width: 6px;
+    height: 12px;
+    background: #191a24;
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    z-index: 3;
+  }
+  @media (max-width:375px) {
+    width: 70px;
+    height: 70px;
+  }
+`;
+
+const Top = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: rgba(25, 26, 36, 0.25);
+`;
+
+const Bottom = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+`;
+
+const Line = styled.div`
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 1px;
+  width: 100%;
+  transform: translateY(-50%);
+  background: rgba(25, 26, 36, 0.3);
+`;
+
+const TimeText = styled.span`
+  font-size: 5rem;
+  color: hsl(345, 95%, 68%);
+  font-weight: 700;
+  @media (max-width:375px) {
+    font-size: 2rem;
+  }
+`;
 
 const Social = styled.div`
   position: absolute;
@@ -78,8 +193,45 @@ const App = () => {
     <Container>
       <Wrapper>
         <Card>
-          <Title>We're launching soon</Title>
-          <Timer></Timer>
+          <Title><TitleText>We're launching soon</TitleText></Title>
+          <Timer>
+            <CardTimer>
+              <Time>
+                <Top />
+                <Line />
+                <Bottom />
+                <TimeText>8</TimeText>
+              </Time>
+              <Tag>Days</Tag>
+            </CardTimer>
+            <CardTimer>
+              <Time>
+                <Top />
+                <Line />
+                <Bottom />
+                <TimeText>23</TimeText>
+              </Time>
+              <Tag>Hours</Tag>
+            </CardTimer>
+            <CardTimer>
+              <Time>
+                <Top />
+                <Line />
+                <Bottom />
+                <TimeText>55</TimeText>
+              </Time>
+              <Tag>Minutes</Tag>
+            </CardTimer>
+            <CardTimer>
+              <Time>
+                <Top />
+                <Line />
+                <Bottom />
+                <TimeText>41</TimeText>
+              </Time>
+              <Tag>Seconds</Tag>
+            </CardTimer>
+          </Timer>
           <Social>
             <SocialIcon>
               <Facebook />
