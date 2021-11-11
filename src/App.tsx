@@ -15,7 +15,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  background-image: url(${BackgroundImage}), linear-gradient(#1e1f29, #2f2439);
+  background-image: url(${BackgroundImage}), linear-gradient(to bottom,	hsl(235, 15%, 14%), 	hsl(271, 23%, 18%));
   display: flex;
   justify-content: center;
   z-index: 1;
